@@ -1,0 +1,155 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Profil siswa atau admin MA Darul Faqih Indonesia",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Firebase Auth UID pengguna"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email siswa atau admin"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Nama lengkap siswa atau admin"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["student", "admin"],
+          "description": "Peran pengguna dalam aplikasi"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Waktu pendaftaran akun"
+        },
+        "lastActive": {
+          "type": "string",
+          "description": "Waktu terakhir beraktivitas"
+        },
+        "xp": {
+          "type": "number",
+          "description": "Total poin pengalaman belajar siswa"
+        }
+      },
+      "required": ["uid", "role"]
+    },
+    "UserProgress": {
+      "title": "UserProgress",
+      "description": "Progres penyelesaian materi bab bahasa Arab oleh siswa",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "ID siswa pemilik data progres"
+        },
+        "babId": {
+          "type": "string",
+          "description": "ID bab pembelajaran (contoh: bab-1, bab-2)"
+        },
+        "isCompleted": {
+          "type": "boolean",
+          "description": "Status ketuntasan bab"
+        },
+        "lastQuizScore": {
+          "type": "number",
+          "description": "Skor kuis terakhir untuk bab ini"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Waktu pembaruan progres"
+        }
+      },
+      "required": ["userId", "babId"]
+    },
+    "QuizResult": {
+      "title": "QuizResult",
+      "description": "Catatan skor evaluasi dan latihan siswa",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "ID siswa yang mengerjakan kuis"
+        },
+        "studentName": {
+          "type": "string",
+          "description": "Nama siswa saat mengerjakan kuis"
+        },
+        "babId": {
+          "type": "string",
+          "description": "ID Bab atau kuis mandiri"
+        },
+        "babTitle": {
+          "type": "string",
+          "description": "Judul Bab materi kuis"
+        },
+        "score": {
+          "type": "number",
+          "description": "Nilai kuis (skala 0 - 100)"
+        },
+        "totalQuestions": {
+          "type": "number",
+          "description": "Jumlah soal dalam kuis"
+        },
+        "correctCount": {
+          "type": "number",
+          "description": "Jumlah jawaban benar"
+        },
+        "completedAt": {
+          "type": "string",
+          "description": "Waktu penyelesaian kuis"
+        }
+      },
+      "required": ["userId", "babId", "score"]
+    },
+    "Announcement": {
+      "title": "Announcement",
+      "description": "Pengumuman dan instruksi belajar dari Ustadz/Admin MA Darul Faqih",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID pengumuman"
+        },
+        "title": {
+          "type": "string",
+          "description": "Judul pengumuman"
+        },
+        "content": {
+          "type": "string",
+          "description": "Isi pengumuman atau instruksi hafalan"
+        },
+        "author": {
+          "type": "string",
+          "description": "Nama ustadz atau staf pengajar"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Tanggal pembuatan pengumuman"
+        }
+      },
+      "required": ["title", "content"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Profil individual per user (siswa/admin)"
+    },
+    "/users/{userId}/progress/{progressId}": {
+      "schema": "UserProgress",
+      "description": "Sub-koleksi rekaman progres belajar per bab per user"
+    },
+    "/quizResults/{resultId}": {
+      "schema": "QuizResult",
+      "description": "Koleksi hasil kuis siswa untuk pemantauan nilai dan grafik rapor"
+    },
+    "/announcements/{announcementId}": {
+      "schema": "Announcement",
+      "description": "Pengumuman materi dan tugas dari pihak sekolah/madrasah"
+    }
+  }
+}

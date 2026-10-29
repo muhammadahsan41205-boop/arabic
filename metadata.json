@@ -1,0 +1,6 @@
+{
+  "name": "Pembelajaran Bahasa Arab Kelas X MA Darul Faqih",
+  "description": "Aplikasi pembelajaran interaktif Bahasa Arab untuk siswa Kelas X MA Darul Faqih Indonesia lengkap dengan materi, mufradat, qawa'id, audio pelafalan, evaluasi, asisten AI, dan pemantauan nilai.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
